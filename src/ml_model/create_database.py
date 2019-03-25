@@ -32,29 +32,6 @@ def transaction_bldr(sql,input):
         sql_transaction = []
 
 
-
-# def sql_update_comment(commentid,parentid,parent,comment,subreddit,time,score):
-#     try:
-#         sql = """UPDATE parent_reply SET parent_id = ?, comment_id = ?, parent = ?, comment = ?, subreddit = ?, unix = ?, score = ? WHERE parent_id =?;""".format(parentid, commentid, parent, comment, subreddit, int(time), score, parentid)
-#         transaction_bldr(sql)
-#     except Exception as e:
-#         print('update',str(e))
-#
-# def sql_insert_has_parent(commentid,parentid,parent,comment,subreddit,time,score):
-#     try:
-#         sql = """INSERT INTO parent_reply (parent_id, comment_id, parent, comment, subreddit, unix, score) VALUES ("{}","{}","{}","{}","{}",{},{});""".format(parentid, commentid, parent, comment, subreddit, int(time), score)
-#         transaction_bldr(sql)
-#     except Exception as e:
-#         print('s1 insertion',str(e))
-#
-# def sql_insert_no_parent(commentid,parentid,comment,subreddit,time,score):
-#     try:
-#         sql = """INSERT INTO parent_reply (parent_id, comment_id, comment, subreddit, unix, score) VALUES ("{}","{}","{}","{}",{},{});""".format(parentid, commentid, comment, subreddit, int(time), score)
-#         transaction_bldr(sql)
-#     except Exception as e:
-#         print('s0 insertion',str(e))
-
-
 def sql_update_comment(commentid,parentid,parent,comment,subreddit,time,score):
     try:
         sql = """UPDATE parent_reply SET parent_id = ?, comment_id = ?, parent = ?, comment = ?, subreddit = ?, unix = ?, score = ? WHERE parent_id =?;"""
@@ -159,7 +136,7 @@ if __name__ == "__main__":
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
 
             if row_counter % CLEANUP == 0:
-                print("Cleanin up!")
+                print("Cleaning up!")
                 sql = "DELETE FROM parent_reply WHERE parent IS NULL"
                 c.execute(sql)
                 connection.commit()
